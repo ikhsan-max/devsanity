@@ -39,6 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+<<<<<<< HEAD
 
 /src/generated/prisma
 prisma/dev.db
+=======
+>>>>>>> parent of 15a2b6b (feat: add resource management with Prisma and UI components)
