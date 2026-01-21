@@ -3,6 +3,7 @@
 import { prisma } from "@/app/lib/prisma"
 import { revalidatePath } from "next/cache"
 import { isCategory } from "@/lib/categories"
+import { Prisma } from "@prisma/client"
 export async function createResource(formData: FormData) {
   const title = String(formData.get("title") ?? "").trim()
   const url = String(formData.get("url") ?? "").trim()
@@ -16,6 +17,7 @@ export async function createResource(formData: FormData) {
   })
 
   revalidatePath("/resources")
+  revalidatePath("/")
 }
 export async function toggleUsed(id: number) {
   const current = await prisma.resource.findUnique({where: {id}})
@@ -26,6 +28,18 @@ export async function toggleUsed(id: number) {
       data: { used: !current.used},
     })
   revalidatePath("/resources")
+  revalidatePath("/")
+}
+export async function listResources(params?: { where?: Prisma.ResourceWhereInput }) {
+  return prisma.resource.findMany({
+    where: params?.where,
+    orderBy: { createdAt: "desc" },
+  })
+}
+export async function deleteResource(id: number) {
+  await prisma.resource.delete({ where: { id } })
+  revalidatePath("/resources")
+  revalidatePath("/")
 }
 
   
