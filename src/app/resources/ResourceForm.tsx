@@ -1,5 +1,5 @@
 "use client"
-import { createResource } from "./action"
+import { createResource } from "./actions"
 import { CATEGORIES } from "@/lib/categories"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"

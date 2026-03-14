@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { prisma } from "@/app/lib/prisma" 
+import { prisma } from "@/lib/prisma" 
 import { CardContent,CardHeader,CardTitle,Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
