@@ -4,11 +4,14 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { prettyDate } from "@/lib/utils";
 import { toggleUsed } from "@/app/resources/actions";
+import { Category } from "@prisma/client";
+import EditResourceForm from "@/app/resources/EditResourceForm";
+
 type Resource = {
     id: number
     title: string
     url: string
-    category: string
+    category: Category
     used: boolean
     notes: string | null
     createdAt: Date
@@ -85,6 +88,7 @@ export default function ResourceItem({ item }: Props) {
               Delete
             </Button>
           </form>
+          <EditResourceForm resource={item} />
 
         </div>
 
