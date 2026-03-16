@@ -42,9 +42,9 @@ return (
         <CardContent>
           <div className="flex items-baseline space-x-2">
             <div className="text-2xl font-bold">{ratio}%</div>
-            <Badge variant={ratio > 70 ? "destructive" : "default"}>
-              {ratio > 50 ? "High" : "Normal"}
-            </Badge>
+           <Badge variant={ratio >= 70 ? "default" : ratio >= 40 ? "secondary" : "destructive"}>
+            {ratio >= 70 ? "Healthy" : ratio >= 40 ? "Okay" : "Low"}
+          </Badge>
           </div>
           <div className="w-full bg-secondary h-2 mt-3 rounded-full overflow-hidden">
             <div

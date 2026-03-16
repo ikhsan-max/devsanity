@@ -3,8 +3,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Prisma, Category } from "@prisma/client"
 import ResourceForm from "./ResourceForm"
 import Filters from "./Filters"
-import ResourcesStats from "@/components/ui/ResourcesStats"
-import ResourcesList from "@/components/ui/ResourcesList"
+import ResourcesStats from "@/app/resources/ResourcesStats"
+import ResourcesList from "@/app/resources/ResourcesList"
 
 export default async function ResourcesPage({
   searchParams,

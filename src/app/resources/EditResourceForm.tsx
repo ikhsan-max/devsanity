@@ -14,22 +14,14 @@ import {
   } from "@/components/ui/select";
 import { Category } from "@prisma/client";
 import { CATEGORIES } from "@/lib/categories";
-
-type Resource = {
-    id: number
-    title: string
-    url: string
-    category: Category
-    used: boolean
-    notes: string | null
-    createdAt: Date 
-}
+import type { ResourceItemType } from "@/types/resource"
 
 type Props = {
-    resource: Resource
+    resource: ResourceItemType
+    onCancel: () => void
 }
-export default function EditResourceForm({resource}: Props){
-    const [category, setCategory] = useState<string>(resource.category)
+export default function EditResourceForm({resource, onCancel}: Props){
+    const [category, setCategory] = useState<Category>(resource.category)
 
    
    
@@ -58,7 +50,7 @@ export default function EditResourceForm({resource}: Props){
             </div>
              <div className="grid gap-2">
                 <Label>Category</Label>
-                <Select value={category} onValueChange={setCategory}>
+                <Select value={category} onValueChange={(value) => setCategory(value as Category)}>
                     <SelectTrigger>
                         <SelectValue placeholder="Pilih category" />
                     </SelectTrigger>
@@ -84,7 +76,9 @@ export default function EditResourceForm({resource}: Props){
             <Button type="submit">
             Update
             </Button>
-            
+            <Button type="button" variant="outline" onClick={onCancel}>
+                Cancel
+            </Button>
              </div>
       </form>
             
