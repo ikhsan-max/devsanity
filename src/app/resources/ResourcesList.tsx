@@ -1,16 +1,8 @@
 import ResourceItem from "./ResourceItem"
+import type { ResourceItemType } from "@/types/resource"
 
-type Resource = {
-  id: number
-  title: string
-  url: string
-  category: string
-  used: boolean
-  notes: string | null
-  createdAt: Date
-}
 type Props = {
-  items: Resource[]
+  items: ResourceItemType[]
 }
 export default function ResourcesList({ items }: Props) {
  if (items.length === 0) {

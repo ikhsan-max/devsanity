@@ -1,16 +1,17 @@
 import { Database, CheckCircle, Percent } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+
 type Props = {
-  total: number 
+  total: number
   used: number
   ratio: number
 }
-export default function ResourcesStats({total, used, ratio}: Props) {
-return (
-  
-  <div className="grid gap-4 md:grid-cols-3">
-<Card>
+
+export default function ResourcesStats({ total, used, ratio }: Props) {
+  return (
+    <div className="grid gap-4 md:grid-cols-3">
+      <Card>
         <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
           <CardTitle className="text-sm font-medium">Total Resources</CardTitle>
           <Database className="w-4 h-4 text-muted-foreground" />
@@ -42,18 +43,23 @@ return (
         <CardContent>
           <div className="flex items-baseline space-x-2">
             <div className="text-2xl font-bold">{ratio}%</div>
-            <Badge variant={ratio > 70 ? "destructive" : "default"}>
-              {ratio > 50 ? "High" : "Normal"}
+            <Badge
+              variant={
+                ratio >= 70 ? "default" : ratio >= 40 ? "secondary" : "destructive"
+              }
+            >
+              {ratio >= 70 ? "Healthy" : ratio >= 40 ? "Okay" : "Low"}
             </Badge>
           </div>
-          <div className="w-full bg-secondary h-2 mt-3 rounded-full overflow-hidden">
+
+          <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-secondary">
             <div
-              className="bg-primary h-full transition-all"
-              style={{ width: `${ratio}%` }}
+              className="h-full bg-primary transition-all"
+              style={{ width: `${Math.min(ratio, 100)}%` }}
             />
           </div>
         </CardContent>
       </Card>
-
-      </div>
-)}
+    </div>
+  )
+}
