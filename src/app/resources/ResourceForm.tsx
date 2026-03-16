@@ -13,9 +13,10 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { useState } from "react"
+import { Category } from "@prisma/client"
 
 export default function ResourceForm() {
-  const [category, setCategory] = useState<string>("")
+  const [category, setCategory] = useState<Category | "">("")
 
   return (
     <form action={createResource} className="grid gap-4">
@@ -32,7 +33,7 @@ export default function ResourceForm() {
       <div className="grid gap-2">
         <Label>Category</Label>
         <input type="hidden" name="category" value={category} />
-        <Select value={category} onValueChange={setCategory}>
+        <Select value={category} onValueChange={(value) => setCategory(value as Category)}>
           <SelectTrigger>
             <SelectValue placeholder="Pilih category" />
           </SelectTrigger>
