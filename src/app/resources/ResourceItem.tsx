@@ -75,6 +75,11 @@ export default function ResourceItem({ item }: Props) {
               action={async () => {
                 await deleteResource(item.id)
               }}
+            onSubmit={(e) => {
+            if (!confirm("Apakah Anda yakin ingin menghapus data ini?")) {
+              e.preventDefault()
+            }
+          }}
             >
               <Button variant="destructive" size="sm" type="submit">
                 Delete
