@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Loader2 } from "lucide-react";
 import {
     Select,
     SelectContent,
@@ -15,6 +16,7 @@ import {
 import { Category } from "@prisma/client";
 import { CATEGORIES } from "@/lib/categories";
 import type { ResourceItemType } from "@/types/resource"
+import SubmitButton from "./SubmitButton";
 
 type Props = {
     resource: ResourceItemType
@@ -73,12 +75,14 @@ export default function EditResourceForm({resource, onCancel}: Props){
             </div>
 
             <div className="flex justify-end">
-            <Button type="submit">
-            Update
-            </Button>
             <Button type="button" variant="outline" onClick={onCancel}>
                 Cancel
             </Button>
+            <SubmitButton
+                idleText="Update"
+                loadingText="Updating..."
+                spinner={<Loader2 className="animate-spin" />}
+            />
              </div>
       </form>
             

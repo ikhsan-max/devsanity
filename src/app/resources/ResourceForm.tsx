@@ -1,10 +1,10 @@
 "use client"
 import { createResource } from "./actions"
 import { CATEGORIES } from "@/lib/categories"
-import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
+import { Loader2 } from "lucide-react"
 import {
   Select,
   SelectContent,
@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/select"
 import { useState } from "react"
 import { Category } from "@prisma/client"
-
+import SubmitButton from "./SubmitButton"
 export default function ResourceForm() {
   const [category, setCategory] = useState<Category | "">("")
 
@@ -53,9 +53,11 @@ export default function ResourceForm() {
       </div>
 
       <div className="flex justify-end">
-        <Button type="submit" disabled={!category}>
-          Add
-        </Button>
+        <SubmitButton
+          idleText="Submit"
+          loadingText="Submitting..."
+          spinner={<Loader2 className="animate-spin" />}
+        />
       </div>
     </form>
   )
