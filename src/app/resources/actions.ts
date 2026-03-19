@@ -67,6 +67,7 @@ export async function deleteResource(id: number) {
 }
 
 export async function updateResource(formData: FormData) {
+  try{
   const id = Number(formData.get("id"))
   const title = String(formData.get("title") ?? "").trim()
   const url = String(formData.get("url") ?? "").trim()
@@ -94,4 +95,9 @@ export async function updateResource(formData: FormData) {
   revalidatePath("/resources")
   revalidatePath("/")
   return { success: true }
+  } catch(error){
+    console.error("Update resource error:", error)
+    return { success: false,
+       error: (error as Error).message }
+  }
 }
