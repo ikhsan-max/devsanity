@@ -93,4 +93,5 @@ export async function updateResource(formData: FormData) {
 
   revalidatePath("/resources")
   revalidatePath("/")
+  return { success: true }
 }

@@ -24,12 +24,17 @@ type Props = {
 }
 export default function EditResourceForm({resource, onCancel}: Props){
     const [category, setCategory] = useState<Category>(resource.category)
-
-   
+    
+    const handleUpdate = async (formData: FormData) => {
+        const res = await updateResource(formData)
+        if (res?.success) {
+            onCancel()
+        }
+    }
    
     
     return (
-        <form action={updateResource} className="grid gap-4">
+        <form action={handleUpdate} className="grid gap-4">
             <input type="hidden" name="id" value={resource.id} />
             <input type="hidden" name="category" value={category} />
             <div className="grid gap-2">
@@ -74,7 +79,7 @@ export default function EditResourceForm({resource, onCancel}: Props){
                 />
             </div>
 
-            <div className="flex justify-end">
+            <div className="flex justify-end gap-2">
             <Button type="button" variant="outline" onClick={onCancel}>
                 Cancel
             </Button>
