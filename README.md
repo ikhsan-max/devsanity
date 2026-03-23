@@ -1,138 +1,84 @@
 # DevSanity
 
-DevSanity adalah aplikasi sederhana untuk membantu developer mencatat resource yang benar-benar digunakan, bukan sekadar dikoleksi.
+DevSanity is a simple app for tracking resources you actually use, not just collect.
 
-Banyak developer menyimpan banyak link (docs, tools, tutorial), tapi jarang dipakai.
-DevSanity membantu memfilter mana yang benar-benar dipakai dan mana yang hanya jadi “dopamine collection”.
+The goal is straightforward: keep useful docs, tools, and references visible, and filter out links that only become bookmark clutter.
 
----
+## Features
 
-## ✨ Features
+- Add resources with title, URL, category, and notes
+- Edit resources inline
+- Delete resources with confirmation
+- Mark resources as used or unused
+- Search by title, URL, or notes
+- Filter by category
+- View usage stats
+- Show loading states and toast feedback
 
-* ➕ Add resource (title, url, category, notes)
-* ✏️ Edit resource (inline edit)
-* 🗑️ Delete resource (dengan konfirmasi)
-* ✅ Mark resource as used / unused
-* 🔍 Search (title, url, notes)
-* 🏷️ Filter by category
-* 📊 Usage statistics (total, used, ratio)
-* ⏳ Loading state saat submit
-* 🔔 Toast notification (success & error)
-* ♻️ Auto reset form setelah submit
+## Tech Stack
 
----
+- Next.js App Router
+- TypeScript
+- Prisma ORM
+- PostgreSQL
+- Tailwind CSS
+- shadcn/ui
+- Sonner
 
-## 🧠 Philosophy
+## Getting Started
 
-> "Tambahkan link yang benar-benar kamu pakai. Bukan koleksi dopamin."
-
-DevSanity bukan bookmark manager biasa.
-Fokusnya adalah **kualitas penggunaan, bukan jumlah resource**.
-
----
-
-## 🛠️ Tech Stack
-
-* Next.js (App Router)
-* TypeScript
-* Prisma ORM
-* SQLite
-* Tailwind CSS
-* shadcn/ui
-* Sonner (toast)
-
----
-
-## 🚀 Getting Started
-
-### 1. Clone repository
+1. Clone the repository
 
 ```bash
 git clone https://github.com/ikhsan-max/devsanity.git
 cd devsanity
 ```
 
-### 2. Install dependencies
+2. Install dependencies
 
 ```bash
 npm install
 ```
 
-### 3. Setup database
+3. Create `.env`
+
+```env
+DATABASE_URL="postgresql://USER:PASSWORD@HOST:5432/DB_NAME?schema=public"
+```
+
+4. Run Prisma migration
 
 ```bash
 npx prisma migrate dev
 ```
 
-### 4. Run development server
+5. Start the development server
 
 ```bash
 npm run dev
 ```
 
-App akan berjalan di:
+Open `http://localhost:3000`.
 
-```
-http://localhost:3000
-```
+## Project Structure
 
----
-
-## 📁 Project Structure
-
-```
+```text
 src/
-├── app/
-│   └── resources/       # main feature (CRUD + filters)
-├── components/ui/       # reusable UI components
-├── types/               # shared TypeScript types
-├── lib/                 # utilities (categories, helpers)
+|-- app/
+|   |-- resources/        # main feature area
+|-- components/ui/        # reusable UI components
+|-- lib/                  # helpers and shared utilities
+|-- types/                # shared TypeScript types
 prisma/
-├── schema.prisma        # database schema
+|-- migrations/           # Prisma migration history
+|-- schema.prisma         # database schema
 ```
 
----
+## Notes
 
-## 📊 Example Use Case
+This project is mainly for practicing:
 
-* Simpan docs yang sering dipakai (React, Next.js, Prisma)
-* Tandai mana yang benar-benar digunakan
-* Filter berdasarkan kategori (Frontend, Backend, Tools)
-* Lihat rasio penggunaan resource
-
----
-
-## 🗺️ Roadmap
-
-* [ ] Better empty state UX
-* [ ] Confirm dialog UI (replace native confirm)
-* [ ] Deployment (Vercel)
-* [ ] Optional optimistic UI
-* [ ] Tagging system (optional)
-
----
-
-## 👤 Author
-
-Ikhsan R
-Programmer & builder
-
----
-
-## ⚠️ Notes
-
-Project ini dibuat sebagai latihan untuk:
-
-* memahami Next.js App Router
-* membangun CRUD dengan Prisma
-* memisahkan server & client logic dengan benar
-* membangun reusable UI component
-
----
-
-## 📌 License
-
-This project is licensed under the MIT License.  
-See the [LICENSE](./LICENSE) file for details.
-
-MIT
+- Next.js App Router
+- Prisma CRUD flow
+- Server and client component boundaries
+- Reusable UI composition
