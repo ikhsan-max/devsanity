@@ -5,6 +5,7 @@ import ResourceForm from "./ResourceForm"
 import Filters from "./Filters"
 import ResourcesStats from "@/app/resources/ResourcesStats"
 import ResourcesList from "@/app/resources/ResourcesList"
+import { Suspense } from "react"
 
 export default async function ResourcesPage({
   searchParams,
@@ -41,7 +42,9 @@ export default async function ResourcesPage({
         </p>
       </header>
 
-      <Filters />
+      <Suspense fallback={null}>
+        <Filters />
+      </Suspense>
       <div className="text-sm text-muted-foreground">
         Showing {items.length} result(s)
         {category ? ` - category: ${category}` : ""}

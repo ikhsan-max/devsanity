@@ -34,7 +34,7 @@ return (
       <div className="grid gap-2 w-full md:max-w-xs">
         <div className="text-sm font-medium">Category</div>
         <Select value={category || undefined} onValueChange={(val) => setCategory(val === "all" ? "" : val)}>
-          <SelectTrigger>
+          <SelectTrigger className="w-full">
             <SelectValue placeholder="All categories" />
           </SelectTrigger>
           <SelectContent>
