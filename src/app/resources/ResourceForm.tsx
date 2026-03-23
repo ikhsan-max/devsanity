@@ -1,10 +1,12 @@
 "use client"
 import { createResource } from "./actions"
 import { CATEGORIES } from "@/lib/categories"
-import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
+import { toast } from "sonner"
 import { Label } from "@/components/ui/label"
+import { Loader2 } from "lucide-react"
+import { useRef  } from "react"
 import {
   Select,
   SelectContent,
@@ -13,13 +15,24 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { useState } from "react"
-import { Category } from "@prisma/client"
-
+import type{ Category } from "@prisma/client"
+import SubmitButton from "./SubmitButton"
 export default function ResourceForm() {
   const [category, setCategory] = useState<Category | "">("")
+  const formRef = useRef<HTMLFormElement>(null)  
+  const handleSubmit = async (formData: FormData) => {
+    const res = await createResource(formData)  
+    if (res?.success) {
+      toast.success("Resource created successfully")
+      formRef.current?.reset()
+      setCategory("")
+    } else {
+      toast.error(`Failed to create resource: ${res?.error || "Unknown error"}`)
+    }
+  }
 
   return (
-    <form action={createResource} className="grid gap-4">
+    <form ref={formRef} action={handleSubmit} className="grid gap-4">
       <div className="grid gap-2">
         <Label htmlFor="title">Title</Label>
         <Input id="title" name="title" placeholder="React Docs" required />
@@ -33,8 +46,9 @@ export default function ResourceForm() {
       <div className="grid gap-2">
         <Label>Category</Label>
         <input type="hidden" name="category" value={category} />
-        <Select value={category} onValueChange={(value) => setCategory(value as Category)}>
-          <SelectTrigger>
+        <Select value={category || undefined} 
+        onValueChange={(value) => setCategory(value as Category)}>
+          <SelectTrigger className="w-full">
             <SelectValue placeholder="Pilih category" />
           </SelectTrigger>
           <SelectContent>
@@ -53,9 +67,12 @@ export default function ResourceForm() {
       </div>
 
       <div className="flex justify-end">
-        <Button type="submit" disabled={!category}>
-          Add
-        </Button>
+        <SubmitButton
+          idleText="Add"
+          loadingText="Adding..."
+          spinner={<Loader2 className="animate-spin" />}
+          disabled={!category}
+        />
       </div>
     </form>
   )
