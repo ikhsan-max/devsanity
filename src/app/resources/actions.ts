@@ -6,6 +6,7 @@ import { isCategory } from "@/lib/categories"
 import { Category, Prisma } from "@prisma/client"
 
 export async function createResource(formData: FormData) {
+  try{
   const title = String(formData.get("title") ?? "").trim()
   const url = String(formData.get("url") ?? "").trim()
   const category = String(formData.get("category") ?? "").trim()
@@ -30,6 +31,13 @@ export async function createResource(formData: FormData) {
 
   revalidatePath("/resources")
   revalidatePath("/")
+  return { success: true }
+  } catch(error){
+    console.error("Create resource error:", error)
+    return { success: false,
+  error: error instanceof Error ? error.message : "Unknown error",
+}
+  }
 }
 
 export async function toggleUsed(id: number) {
@@ -58,12 +66,19 @@ export async function listResources(params?: { where?: Prisma.ResourceWhereInput
 }
 
 export async function deleteResource(id: number) {
+  try{
   await prisma.resource.delete({
     where: { id },
   })
 
   revalidatePath("/resources")
   revalidatePath("/")
+  return { success: true }
+  } catch(error){
+    console.error("Delete resource error:", error)
+    return { success: false,
+  error: error instanceof Error ? error.message : "Unknown error", }
+  }
 }
 
 export async function updateResource(formData: FormData) {
@@ -98,6 +113,6 @@ export async function updateResource(formData: FormData) {
   } catch(error){
     console.error("Update resource error:", error)
     return { success: false,
-       error: (error as Error).message }
+  error: error instanceof Error ? error.message : "Unknown error", }
   }
 }

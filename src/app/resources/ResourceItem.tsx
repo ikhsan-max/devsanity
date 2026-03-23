@@ -8,6 +8,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { prettyDate } from "@/lib/utils"
 import EditResourceForm from "@/app/resources/EditResourceForm"
 import type { ResourceItemType } from "@/types/resource"
+import { toast } from "sonner"
 
 
 type Props = {
@@ -78,6 +79,7 @@ export default function ResourceItem({ item }: Props) {
             onSubmit={(e) => {
             if (!confirm("Apakah Anda yakin ingin menghapus data ini?")) {
               e.preventDefault()
+              toast.success("resource deleted")
             }
           }}
             >

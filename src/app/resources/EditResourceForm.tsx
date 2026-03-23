@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 import {
     Select,
@@ -13,7 +14,7 @@ import {
     SelectTrigger,
     SelectValue,
   } from "@/components/ui/select";
-import { Category } from "@prisma/client";
+import type{ Category } from "@prisma/client";
 import { CATEGORIES } from "@/lib/categories";
 import type { ResourceItemType } from "@/types/resource"
 import SubmitButton from "./SubmitButton";
@@ -28,7 +29,10 @@ export default function EditResourceForm({resource, onCancel}: Props){
     const handleUpdate = async (formData: FormData) => {
         const res = await updateResource(formData)
         if (res?.success) {
+            toast.success("Resource updated successfully")
             onCancel()
+        } else {
+            toast.error(`Failed to update resource: ${res?.error || "Unknown error"}`)
         }
     }
    
@@ -58,7 +62,7 @@ export default function EditResourceForm({resource, onCancel}: Props){
              <div className="grid gap-2">
                 <Label>Category</Label>
                 <Select value={category} onValueChange={(value) => setCategory(value as Category)}>
-                    <SelectTrigger>
+                    <SelectTrigger className="w-full">
                         <SelectValue placeholder="Pilih category" />
                     </SelectTrigger>
                     <SelectContent>
@@ -86,7 +90,7 @@ export default function EditResourceForm({resource, onCancel}: Props){
             <SubmitButton
                 idleText="Update"
                 loadingText="Updating..."
-                spinner={<Loader2 className="animate-spin" />}
+                spinner={<Loader2 className="h-4 w-4 animate-spin" />}
             />
              </div>
       </form>
